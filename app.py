@@ -14,7 +14,7 @@ def list_routes():
 
     for rule in app.url_map.iter_rules():
         routes.append({
-            "endpoint": str(rule.endpoint), 
+            "endpoint": str(rule), 
             "methods": str(rule.methods),
         })
 
