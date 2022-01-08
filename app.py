@@ -9,6 +9,17 @@ app = Flask(__name__)
 
 # http://127.0.0.1:5000/
 
+def list_routes():
+    routes = []
+
+    for rule in app.url_map.iter_rules():
+        routes.append({
+            "endpoint": str(rule.endpoint), 
+            "methods": str(rule.methods),
+        })
+
+    return routes
+
 
 def cors(view_func):
     @wraps(view_func)
@@ -38,6 +49,7 @@ def index():
         "args": request.args,
         "form-data": request.form,
         "json-data": json_data,
+        "url_map": list_routes(),
     }
     response = jsonify(response_data)
     response.headers.add("Access-Control-Allow-Origin", "*")
